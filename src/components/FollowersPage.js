@@ -20,6 +20,7 @@ const FollowersPage = () => {
   const [profileData, setProfileData] = useState(null);
   const [followers, setFollowers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentUser, setCurrentUser] = useState(null); // Track logged-in user
 
   // Auth listener
   useEffect(() => {
