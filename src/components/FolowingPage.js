@@ -6,7 +6,6 @@ import {
   doc,
   collection,
   query,
-  where,
   onSnapshot,
   getDoc,
 } from 'firebase/firestore';
