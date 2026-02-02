@@ -1,0 +1,231 @@
+/* src/pages/Reels.css */
+
+.reels-page {
+  height: 100vh;
+  width: 100%;
+  background: #000;
+  overflow: hidden;
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.reels-back {
+  position: absolute;
+  top: 20px;
+  left: 16px;
+  z-index: 20;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  color: white;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.reels-back:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.reels-container {
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
+
+.reels-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+.reel {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
+.reel-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #000;
+}
+
+.reel-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 80px 20px 30px 20px; /* Extra top padding to avoid safe-area overlap on mobile */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  color: white;
+  pointer-events: none; /* Allows video tap-through for mute toggle */
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+.reel-user {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  opacity: 0.95;
+}
+
+.reel-caption {
+  font-size: 15px;
+  line-height: 1.4;
+  max-width: 90%;
+  opacity: 0.9;
+}
+
+/* Optional: Safe area handling for notched phones */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .reel-overlay {
+    padding-bottom: max(30px, env(safe-area-inset-bottom));
+  }
+}
+
+/* Mobile touch improvements */
+.reel-video {
+  touch-action: pan-y; /* Allows vertical scroll while preventing interference */
+}
+/* Add these to your existing src/pages/Reels.css */
+
+/* Right-side action buttons */
+.reel-actions {
+  position: absolute;
+  right: 12px;
+  bottom: 100px; /* Space for avatar + overlay */
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  z-index: 15;
+  pointer-events: none;
+}
+
+.action-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  pointer-events: auto;
+}
+
+.action-btn {
+  background: rgba(0, 0, 0, 0.4);
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+  background: rgba(0, 0, 0, 0.6);
+  transform: scale(1.1);
+}
+
+.action-btn:active {
+  transform: scale(0.95);
+}
+
+.action-icon {
+  width: 40px;
+  height: 40px;
+  stroke: white;
+  fill: none;
+  stroke-width: 2;
+  transition: all 0.2s ease;
+}
+
+/* Liked state */
+.like-btn.liked .action-icon {
+  fill: #ff0050;
+  stroke: #ff0050;
+  animation: heart-bounce 0.6s ease-out;
+}
+
+@keyframes heart-bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
+
+.action-count {
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Creator avatar (bottom right) */
+.reel-creator-avatar {
+  position: absolute;
+  bottom: 24px;
+  right: 16px;
+  z-index: 15;
+  pointer-events: auto;
+}
+
+.creator-avatar-img {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.creator-avatar-img:hover {
+  transform: scale(1.05);
+}
+
+/* Double-tap like popup */
+.like-popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 20;
+}
+
+.popup-heart {
+  width: 120px;
+  height: 120px;
+  animation: popupAnimation 1s ease-out;
+  filter: drop-shadow(0 0 20px rgba(255, 0, 80, 0.6));
+}
+
+@keyframes popupAnimation {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  40% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Adjust overlay to avoid overlap */
+.reel-overlay {
+  padding-bottom: max(100px, env(safe-area-inset-bottom) + 40px);
+}

@@ -1,0 +1,695 @@
+/* ========================================
+   PULSE LOGIN - MODERN DESIGN
+   ======================================== */
+
+:root {
+  /* Brand Colors */
+  --pulse-primary: #6366f1;
+  --pulse-primary-dark: #4f46e5;
+  --pulse-primary-light: #818cf8;
+  --pulse-secondary: #ec4899;
+  --pulse-accent: #8b5cf6;
+  
+  /* Neutral Colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+  
+  /* Status Colors */
+  --error-color: #ef4444;
+  --error-bg: #fef2f2;
+  --error-border: #fecaca;
+  --success-color: #10b981;
+  --info-color: #3b82f6;
+  --info-bg: #eff6ff;
+  
+  /* UI Elements */
+  --border-color: #e2e8f0;
+  --border-radius: 12px;
+  --border-radius-lg: 16px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  
+  /* Typography */
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 2rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ========================================
+   PAGE LAYOUT
+   ======================================== */
+
+.pulse-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
+  font-family: var(--font-family);
+  overflow-x: hidden;
+}
+
+.pulse-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 20%, rgba(139, 92, 246, 0.2) 0%, transparent 50%);
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+/* ========================================
+   CARD CONTAINER
+   ======================================== */
+
+.pulse-card {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  background: var(--bg-primary);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-2xl);
+  box-shadow: var(--shadow-xl), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  animation: slideUp 0.6s ease-out;
+  z-index: 1;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================
+   BRANDING
+   ======================================== */
+
+.pulse-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+}
+
+.pulse-logo {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, var(--pulse-primary), var(--pulse-accent));
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 16px rgba(99, 102, 241, 0.3);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 8px 16px rgba(99, 102, 241, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 12px 24px rgba(99, 102, 241, 0.4);
+  }
+}
+
+.pulse-logo i {
+  font-size: 28px;
+  color: white;
+}
+
+.pulse-brand h1 {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--pulse-primary), var(--pulse-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+}
+
+/* ========================================
+   HEADINGS & TEXT
+   ======================================== */
+
+.pulse-card h2 {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+  text-align: center;
+  letter-spacing: -0.3px;
+}
+
+.pulse-tagline {
+  font-size: var(--font-size-base);
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  line-height: 1.6;
+}
+
+/* ========================================
+   ERROR BANNER
+   ======================================== */
+
+.error-banner {
+  background: var(--error-bg);
+  border: 1px solid var(--error-border);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  color: var(--error-color);
+  font-size: var(--font-size-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  animation: shake 0.4s ease-in-out;
+}
+
+.error-banner::before {
+  content: '⚠️';
+  font-size: var(--font-size-lg);
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+
+/* ========================================
+   FORM STYLING
+   ======================================== */
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.form-field label {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+}
+
+/* ========================================
+   INPUT GROUPS
+   ======================================== */
+
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: var(--spacing-md);
+  color: var(--text-muted);
+  font-size: var(--font-size-lg);
+  pointer-events: none;
+  transition: color 0.2s ease;
+  z-index: 1;
+}
+
+.input-group:focus-within .input-icon {
+  color: var(--pulse-primary);
+}
+
+.input-group input {
+  width: 100%;
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-md) calc(var(--spacing-2xl) + var(--spacing-md));
+  font-size: var(--font-size-base);
+  font-family: var(--font-family);
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  border: 2px solid transparent;
+  border-radius: var(--border-radius);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.input-group input::placeholder {
+  color: var(--text-muted);
+}
+
+.input-group input:hover {
+  background: var(--bg-tertiary);
+}
+
+.input-group input:focus {
+  background: white;
+  border-color: var(--pulse-primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.input-group input.invalid {
+  border-color: var(--error-color);
+  background: var(--error-bg);
+}
+
+.input-group input.invalid:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* ========================================
+   PASSWORD TOGGLE
+   ======================================== */
+
+.toggle-password {
+  position: absolute;
+  right: var(--spacing-md);
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: var(--spacing-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+  z-index: 1;
+}
+
+.toggle-password:hover {
+  color: var(--pulse-primary);
+}
+
+.toggle-password:focus-visible {
+  outline: 2px solid var(--pulse-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.toggle-password i {
+  font-size: var(--font-size-lg);
+}
+
+/* ========================================
+   INPUT HINT
+   ======================================== */
+
+.input-hint {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.input-hint i {
+  font-size: var(--font-size-sm);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+/* ========================================
+   FIELD ERRORS
+   ======================================== */
+
+.field-error {
+  font-size: var(--font-size-xs);
+  color: var(--error-color);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.field-error::before {
+  content: '•';
+  font-size: var(--font-size-base);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================
+   FORM EXTRAS (Remember Me & Forgot)
+   ======================================== */
+
+.form-extras {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  margin-top: calc(var(--spacing-sm) * -1);
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  user-select: none;
+}
+
+.remember-me input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--pulse-primary);
+}
+
+.remember-me:hover {
+  color: var(--text-primary);
+}
+
+.forgot-link {
+  font-size: var(--font-size-sm);
+  color: var(--pulse-primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+}
+
+.forgot-link:hover {
+  color: var(--pulse-primary-dark);
+  text-decoration: underline;
+}
+
+/* ========================================
+   SUBMIT BUTTON
+   ======================================== */
+
+.pulse-btn {
+  width: 100%;
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, var(--pulse-primary), var(--pulse-accent));
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+  letter-spacing: 0.02em;
+}
+
+.pulse-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+}
+
+.pulse-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.pulse-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ========================================
+   LOADING ANIMATION
+   ======================================== */
+
+.loading-dot {
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  display: inline-block;
+  animation: loadingBounce 1.4s infinite ease-in-out both;
+}
+
+@keyframes loadingBounce {
+  0%, 80%, 100% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ========================================
+   DIVIDER
+   ======================================== */
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin: var(--spacing-md) 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border-color);
+}
+
+/* ========================================
+   SIGNUP LINK
+   ======================================== */
+
+.signup-link {
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.signup-link a {
+  color: var(--pulse-primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+  position: relative;
+}
+
+.signup-link a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--pulse-primary);
+  transition: width 0.3s ease;
+}
+
+.signup-link a:hover {
+  color: var(--pulse-primary-dark);
+}
+
+.signup-link a:hover::after {
+  width: 100%;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 640px) {
+  .pulse-page {
+    padding: var(--spacing-md);
+  }
+  
+  .pulse-card {
+    padding: var(--spacing-xl) var(--spacing-lg);
+  }
+  
+  .pulse-brand h1 {
+    font-size: var(--font-size-2xl);
+  }
+  
+  .pulse-logo {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .pulse-logo i {
+    font-size: 24px;
+  }
+  
+  .pulse-card h2 {
+    font-size: var(--font-size-xl);
+  }
+  
+  .pulse-tagline {
+    font-size: var(--font-size-sm);
+  }
+  
+  form {
+    gap: var(--spacing-md);
+  }
+  
+  .form-extras {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 400px) {
+  .pulse-card {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+  
+  .pulse-brand {
+    gap: var(--spacing-sm);
+  }
+  
+  .input-group input {
+    padding: var(--spacing-sm) var(--spacing-2xl) var(--spacing-sm) calc(var(--spacing-xl) + var(--spacing-md));
+    font-size: var(--font-size-sm);
+  }
+  
+  .input-icon {
+    left: var(--spacing-sm);
+  }
+  
+  .toggle-password {
+    right: var(--spacing-sm);
+  }
+}
+
+/* ========================================
+   DARK MODE SUPPORT
+   ======================================== */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #1e293b;
+    --bg-secondary: #0f172a;
+    --bg-tertiary: #334155;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --border-color: #334155;
+    --error-bg: #7f1d1d;
+    --error-border: #991b1b;
+    --info-bg: #1e3a8a;
+  }
+  
+  .pulse-card {
+    box-shadow: var(--shadow-xl), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  }
+  
+  .input-group input:focus {
+    background: var(--bg-tertiary);
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY ENHANCEMENTS
+   ======================================== */
+
+.input-group input:focus-visible {
+  outline: 2px solid var(--pulse-primary);
+  outline-offset: 2px;
+}
+
+.pulse-btn:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ========================================
+   ADDITIONAL UTILITIES
+   ======================================== */
+
+.text-center {
+  text-align: center;
+}
+
+.mt-sm {
+  margin-top: var(--spacing-sm);
+}
+
+.mt-md {
+  margin-top: var(--spacing-md);
+}
+
+.mt-lg {
+  margin-top: var(--spacing-lg);
+}

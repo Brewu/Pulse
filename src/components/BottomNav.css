@@ -1,0 +1,97 @@
+:root {
+  --bg: rgba(15, 15, 25, 0.9);
+  --primary: #6c63ff;
+  --accent: #00e5ff;
+  --text: #b3b3c6;
+  --active: #ffffff;
+}
+
+/* ===== Bottom Nav ===== */
+.bottom-nav {
+  position: fixed;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 24px);
+  max-width: 460px;
+  height: 72px;
+  background: var(--bg);
+  backdrop-filter: blur(18px);
+  border-radius: 26px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  z-index: 1000;
+}
+
+/* ===== Nav Item ===== */
+.nav-item {
+  position: relative;
+  flex: 1;
+  height: 100%;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-item.active {
+  color: var(--active);
+}
+
+/* ===== Icon ===== */
+.nav-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* ===== Label ===== */
+.nav-label {
+  font-size: 11px;
+  margin-top: 4px;
+  opacity: 0.7;
+}
+
+.nav-label.active {
+  opacity: 1;
+}
+
+/* ===== FAB ===== */
+.nav-item.fab {
+  flex: 0 0 72px;
+  transform: translateY(-22px);
+}
+
+.nav-item.fab .nav-icon {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(108, 99, 255, 0.6);
+}
+
+/* ===== Ripple ===== */
+.ripple {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  animation: ripple 0.6s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(18);
+    opacity: 0;
+  }
+}

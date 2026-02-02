@@ -1,0 +1,440 @@
+/* ==========================================================================
+   Profile Page - Complete Styles
+   ========================================================================== */
+
+:root {
+  --bg-primary: #000;
+  --bg-secondary: #16181c;
+  --bg-card: #16181c;
+  --text-primary: #e7e9ea;
+  --text-secondary: #71767b;
+  --border: #2f3336;
+  --accent: #1d9bf0;
+  --accent-hover: #1a8cd8;
+  --danger: #e0245e;
+  --radius-sm: 9999px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
+  --transition: all 0.2s ease;
+}
+
+/* ==========================================================================
+   Global & Base
+   ========================================================================== */
+
+.profile-page {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.4;
+}
+
+.profile-loading {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+.profile-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.6rem;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: var(--transition);
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.header-info {
+  flex: 1;
+}
+
+.profile-username {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.post-count {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   Banner & Avatar Section
+   ========================================================================== */
+
+.profile-banner-container {
+  position: relative;
+  margin-bottom: 90px;
+}
+
+.profile-banner {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+  background: #1e293b;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.profile-banner:hover {
+  opacity: 0.95;
+}
+
+.profile-avatar-wrapper {
+  position: absolute;
+  bottom: -70px;
+  left: 20px;
+  z-index: 10;
+}
+
+.avatar-glow-outer {
+  padding: 8px;
+  border-radius: 50%;
+  box-shadow: var(--glow, none);
+  animation: var(--glow-animation, none);
+}
+
+.avatar-border-ring {
+  padding: 6px;
+  border-radius: 50%;
+  background: var(--border-gradient, transparent);
+  animation: var(--border-animation, var(--glow-animation, none));
+}
+
+.profile-avatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--bg-primary);
+  background: #334155;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.profile-avatar:hover {
+  opacity: 0.9;
+}
+
+.rank-badge {
+  position: absolute;
+  bottom: 8px;
+  right: -12px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  background: var(--badge-gradient);
+  color: white;
+  font-weight: 800;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow-md);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   Actions Bar
+   ========================================================================== */
+
+.profile-actions-bar {
+  padding: 0 16px 20px;
+  text-align: right;
+}
+
+.edit-profile-btn,
+.follow-btn {
+  padding: 9px 28px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.edit-profile-btn {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.edit-profile-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.follow-btn {
+  min-width: 120px;
+}
+
+.follow-btn:not(.following) {
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  color: white;
+}
+
+.follow-btn:not(.following):hover {
+  background: var(--accent-hover);
+}
+
+.follow-btn.following {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+}
+
+.follow-btn.following:hover {
+  background: rgba(224, 36, 94, 0.15);
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+/* ==========================================================================
+   Profile Info
+   ========================================================================== */
+
+.profile-info {
+  padding: 0 16px 32px;
+}
+
+.display-name {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.username {
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  margin-bottom: 12px;
+}
+
+.bio {
+  margin: 16px 0;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 1rem;
+}
+
+.joined-date {
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  margin: 16px 0;
+}
+
+.profile-stats {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.stat {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.9375rem;
+  transition: color 0.2s;
+}
+
+.stat strong {
+  color: var(--text-primary);
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.stat:hover {
+  text-decoration: underline;
+  color: var(--text-primary);
+}
+
+/* ==========================================================================
+   Posts Section
+   ========================================================================== */
+
+.profile-posts-section {
+  border-top: 1px solid var(--border);
+}
+
+.section-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-header h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.user-posts-list {
+  background: var(--bg-secondary);
+}
+
+.post-card {
+  display: block;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: inherit;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+
+.post-card:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.tiny-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.post-name {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.post-username {
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  margin-left: 6px;
+}
+
+.post-content {
+  margin: 8px 0 12px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 1rem;
+}
+
+.post-media {
+  margin: 12px 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.post-media img,
+.post-media video {
+  width: 100%;
+  display: block;
+}
+
+.media-video {
+  background: #000;
+}
+
+.post-footer {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+/* ==========================================================================
+   Empty State
+   ========================================================================== */
+
+.empty-posts {
+  text-align: center;
+  padding: 80px 24px;
+  color: var(--text-secondary);
+}
+
+.empty-posts p {
+  font-size: 1.125rem;
+  margin-top: 12px;
+}
+
+/* ==========================================================================
+   Keyframes
+   ========================================================================== */
+
+@keyframes rainbow-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (min-width: 480px) {
+  .profile-avatar-wrapper { left: 32px; }
+  .profile-actions-bar,
+  .profile-info,
+  .section-header { padding-left: 32px; padding-right: 32px; }
+}
+
+@media (min-width: 768px) {
+  .profile-header { padding: 12px 32px; }
+  .profile-info,
+  .profile-actions-bar,
+  .section-header,
+  .user-posts-list { max-width: 600px; margin: 0 auto; }
+  .profile-actions-bar { text-align: right; }
+}
+
+@media (min-width: 1024px) {
+  .profile-page { padding: 0 80px; }
+}
+.post-link {
+  color: var(--accent);
+  text-decoration: underline;
+  word-break: break-word;
+}
+
+.post-link:hover {
+  opacity: 0.85;
+}
+
+.hashtag {
+  color: var(--accent);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.hashtag:hover {
+  text-decoration: underline;
+}
