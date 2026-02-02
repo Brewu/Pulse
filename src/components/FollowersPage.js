@@ -1,7 +1,7 @@
 // src/components/FollowersPage.jsx
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { auth, db } from '../firebase';
+import { db } from '../firebase';
 import {
   doc,
   collection,
@@ -9,9 +9,8 @@ import {
   onSnapshot,
   getDoc,
 } from 'firebase/firestore';
-import { onAuthStateChanged } from 'firebase/auth';
 
-import './FollowList.css'; // We'll create shared CSS below
+import './FollowList.css'; // Shared CSS for followers/following lists
 
 const FollowersPage = () => {
   const { uid } = useParams(); // :uid from route /profile/:uid/followers
@@ -20,13 +19,6 @@ const FollowersPage = () => {
   const [profileData, setProfileData] = useState(null);
   const [followers, setFollowers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [ setCurrentUser] = useState(null); // Track logged-in user
-
-  // Auth listener
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, setCurrentUser);
-    return () => unsubscribe();
-  }, []);
 
   // Load profile + followers list
   useEffect(() => {
@@ -37,15 +29,18 @@ const FollowersPage = () => {
 
     setLoading(true);
 
-    // Get basic profile info (mainly username/displayName)
+    // Get basic profile info (username/displayName for header)
     const profileRef = doc(db, 'users', uid);
     const unsubscribeProfile = onSnapshot(profileRef, (snap) => {
       if (snap.exists()) {
         setProfileData({ uid, ...snap.data() });
+      } else {
+        setProfileData(null);
+        setLoading(false);
       }
     });
 
-    // Real-time followers list
+    // Real-time followers list (subcollection: followers > uid > userFollowers)
     const followersQuery = query(
       collection(db, 'followers', uid, 'userFollowers')
     );
@@ -59,7 +54,7 @@ const FollowersPage = () => {
         return;
       }
 
-      // Fetch user data for each follower
+      // Batch fetch user data for each follower
       const followerPromises = followerUids.map(async (followerUid) => {
         const userDoc = await getDoc(doc(db, 'users', followerUid));
         if (userDoc.exists()) {
@@ -123,10 +118,9 @@ const FollowersPage = () => {
                 className="user-item"
               >
                 <img
-                
                   src={
                     user.profilePicture ||
-                    'https://via.placeholder.com/56?text=' + (user.username?.[0] || '?')
+                    `https://via.placeholder.com/56?text=${(user.username?.[0]?.toUpperCase() || '?')}`
                   }
                   alt={user.username}
                   className="user-avatar"
