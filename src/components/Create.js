@@ -10,7 +10,6 @@ import {
 } from 'firebase/firestore';
 import imageCompression from 'browser-image-compression';
 import EmojiPicker from 'emoji-picker-react';
-
 import './Create.css';
 
 const CLOUD_NAME = 'derrl2nsr';
@@ -43,13 +42,6 @@ const Create = () => {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const cleanupMediaPreview = () => {
-    if (mediaPreview) {
-      URL.revokeObjectURL(mediaPreview);
-      setMediaPreview(null);
-    }
-  };
-
   // ── Voice Recording ─────────────────────────────────────────────
   const startRecording = async () => {
     try {
@@ -69,10 +61,10 @@ const Create = () => {
         const url = URL.createObjectURL(blob);
         const file = new File([blob], `voice-${Date.now()}.webm`, { type: 'audio/webm' });
 
-        cleanupMediaPreview();
         setMediaFile(file);
         setMediaType('audio');
         setMediaPreview(url);
+        // Keep the final recordingTime for display
       };
 
       mediaRecorder.start();
@@ -110,9 +102,11 @@ const Create = () => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    cleanupMediaPreview();
+    // Clear previous media
     setMediaFile(null);
     setMediaType('');
+    setMediaPreview(null);
+    setRecordingTime(0);
 
     try {
       if (file.type.startsWith('image/')) {
@@ -156,9 +150,10 @@ const Create = () => {
   };
 
   const removeMedia = () => {
-    cleanupMediaPreview();
+    setMediaPreview(null);
     setMediaFile(null);
     setMediaType('');
+    setRecordingTime(0);
   };
 
   // ── Cloudinary Upload ───────────────────────────────────────────
@@ -194,12 +189,10 @@ const Create = () => {
     }
 
     setLoading(true);
-
     try {
       const user = auth.currentUser;
       if (!user) throw new Error('Not authenticated');
 
-      // Fetch username if not in auth
       let userName = user.displayName;
       if (!userName) {
         const userSnap = await getDoc(doc(db, 'users', user.uid));
@@ -239,11 +232,28 @@ const Create = () => {
     }
   };
 
-  // ── Cleanup on Unmount ──────────────────────────────────────────
+  // ── Cleanup Effects ─────────────────────────────────────────────
+  // Revoke object URLs when mediaPreview changes or on unmount
   useEffect(() => {
     return () => {
-      cleanupMediaPreview();
-      stopRecording();
+      if (mediaPreview) {
+        URL.revokeObjectURL(mediaPreview);
+      }
+    };
+  }, [mediaPreview]);
+
+  // Stop any ongoing recording on unmount
+  useEffect(() => {
+    return () => {
+      if (mediaRecorderRef.current?.state === 'recording') {
+        mediaRecorderRef.current.stop();
+      }
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((track) => track.stop());
+      }
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
     };
   }, []);
 
@@ -306,7 +316,11 @@ const Create = () => {
               {mediaType === 'audio' && (
                 <div className="audio-preview">
                   <audio src={mediaPreview} controls />
-                  <p>Voice note • {formatTime(recordingTime)}</p>
+                  <p>
+                    {recordingTime > 0
+                      ? `Voice note • ${formatTime(recordingTime)}`
+                      : 'Audio file'}
+                  </p>
                 </div>
               )}
             </div>
