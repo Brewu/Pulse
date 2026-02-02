@@ -201,7 +201,7 @@ const Profile = () => {
       <div className="profile-banner-container">
         <img
           src={profileData.bannerUrl || 'https://images.unsplash.com/photo-1557683316-973673baf926?w=1600'}
-          alt="Banner"
+          alt="Profile banner"
           className="profile-banner"
           onClick={() => isOwnProfile && navigate('/editprofile')}
         />
@@ -223,7 +223,7 @@ const Profile = () => {
             >
               <img
                 src={profileData.profilePicture || 'https://via.placeholder.com/150'}
-                alt="Profile picture"
+                alt={`${profileData.username}'s avatar`}
                 className="profile-avatar"
                 onClick={() => isOwnProfile && navigate('/editprofile')}
               />
@@ -262,11 +262,11 @@ const Profile = () => {
         <h3 className="display-name">{profileData.displayName || profileData.username}</h3>
         <p className="username">@{profileData.username}</p>
 
-{profileData.bio && (
-  <p className="bio">
-    {parseText(profileData.bio, navigate)}
-  </p>
-)}
+        {profileData.bio && (
+          <p className="bio">
+            {parseText(profileData.bio, navigate)}
+          </p>
+        )}
 
         <p className="joined-date">Joined {joinedDate}</p>
 
@@ -314,7 +314,7 @@ const Profile = () => {
                 {post.mediaUrl && (
                   <div className="post-media">
                     {post.mediaType === 'image' && (
-                      <img src={post.mediaUrl} alt="Post media" loading="lazy" />
+                      <img src={post.mediaUrl} alt="Posted content" loading="lazy" />
                     )}
                     {post.mediaType === 'video' && (
                       <video
