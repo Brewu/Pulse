@@ -6,7 +6,6 @@ import {
   doc,
   collection,
   query,
-  where,
   onSnapshot,
   getDoc,
 } from 'firebase/firestore';
@@ -18,7 +17,6 @@ const FollowersPage = () => {
   const { uid } = useParams(); // :uid from route /profile/:uid/followers
   const navigate = useNavigate();
 
-  const [currentUser, setCurrentUser] = useState(null);
   const [profileData, setProfileData] = useState(null);
   const [followers, setFollowers] = useState([]);
   const [loading, setLoading] = useState(true);
