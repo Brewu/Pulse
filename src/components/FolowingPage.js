@@ -16,7 +16,6 @@ const FollowingPage = () => {
   const { uid } = useParams();
   const navigate = useNavigate();
 
-  const [currentUser, setCurrentUser] = useState(null);
   const [profileData, setProfileData] = useState(null);
   const [following, setFollowing] = useState([]);
   const [loading, setLoading] = useState(true);
