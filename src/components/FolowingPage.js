@@ -19,7 +19,7 @@ const FollowingPage = () => {
   const [profileData, setProfileData] = useState(null);
   const [following, setFollowing] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [currentUser, setCurrentUser] = useState(null); // Track logged-in user
+  const [setCurrentUser] = useState(null); // Track logged-in user
 
   // Auth listener (same)
   useEffect(() => {
