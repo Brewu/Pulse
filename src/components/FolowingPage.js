@@ -1,7 +1,7 @@
 // src/components/FollowingPage.jsx
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { auth, db } from '../firebase';
+import { db } from '../firebase';
 import {
   doc,
   collection,
@@ -9,24 +9,18 @@ import {
   onSnapshot,
   getDoc,
 } from 'firebase/firestore';
-import { onAuthStateChanged } from 'firebase/auth';
 
-import './FollowList.css'; // We'll create shared CSS below
+import './FollowList.css'; // Shared CSS for followers/following lists
+
 const FollowingPage = () => {
-  const { uid } = useParams();
+  const { uid } = useParams(); // :uid from route /profile/:uid/following
   const navigate = useNavigate();
 
   const [profileData, setProfileData] = useState(null);
   const [following, setFollowing] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [setCurrentUser] = useState(null); // Track logged-in user
 
-  // Auth listener (same)
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, setCurrentUser);
-    return () => unsubscribe();
-  }, []);
-
+  // Load profile + following list
   useEffect(() => {
     if (!uid) {
       navigate('/profile');
@@ -35,14 +29,18 @@ const FollowingPage = () => {
 
     setLoading(true);
 
+    // Get basic profile info (username/displayName for header)
     const profileRef = doc(db, 'users', uid);
     const unsubscribeProfile = onSnapshot(profileRef, (snap) => {
       if (snap.exists()) {
         setProfileData({ uid, ...snap.data() });
+      } else {
+        setProfileData(null);
+        setLoading(false);
       }
     });
 
-    // Real-time following list
+    // Real-time following list (subcollection: following > uid > userFollowing)
     const followingQuery = query(
       collection(db, 'following', uid, 'userFollowing')
     );
@@ -56,6 +54,7 @@ const FollowingPage = () => {
         return;
       }
 
+      // Batch fetch user data for each followed user
       const followingPromises = followingUids.map(async (followingUid) => {
         const userDoc = await getDoc(doc(db, 'users', followingUid));
         if (userDoc.exists()) {
@@ -75,7 +74,9 @@ const FollowingPage = () => {
     };
   }, [uid, navigate]);
 
-  if (loading) return <div className="follow-page-loading">Loading following...</div>;
+  if (loading) {
+    return <div className="follow-page-loading">Loading following...</div>;
+  }
 
   if (!profileData) {
     return (
@@ -105,7 +106,7 @@ const FollowingPage = () => {
           <div className="empty-state">
             <h4>Not following anyone yet</h4>
             <p>
-              When {profileData.username} follows others, they'll appear here.
+              When {profileData.username} starts following others, they'll appear here.
             </p>
           </div>
         ) : (
@@ -119,7 +120,7 @@ const FollowingPage = () => {
                 <img
                   src={
                     user.profilePicture ||
-                    'https://via.placeholder.com/56?text=' + (user.username?.[0] || '?')
+                    `https://via.placeholder.com/56?text=${(user.username?.[0]?.toUpperCase() || '?')}`
                   }
                   alt={user.username}
                   className="user-avatar"
