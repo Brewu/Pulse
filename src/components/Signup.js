@@ -11,13 +11,7 @@ import './Signup.css';
 const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || 'your-cloud-name-here';
 const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET || 'profile_pics_unsigned';
 
-const rankTiers = [
-  { min: 0, name: 'New Member', color: '#9ca3af' },
-  { min: 50, name: 'Active', color: '#3b82f6' },
-  { min: 250, name: 'Rising Star', color: '#8b5cf6' },
-  { min: 1000, name: 'Influencer', color: '#ec4899' },
-  { min: 5000, name: 'Pulse Legend', color: '#eab308' },
-];
+
 
 const Signup = () => {
   const [theme, setTheme] = useState(() => {
